@@ -1,27 +1,51 @@
-import args from './config.js'
 import http from 'http'
-import connectDB from './conection.js';
+import { selectAll, selectOne, args} from './queries.js';
+import expres from 'express'
 
-var conn = connectDB(args);
+const PORT = args.port;
+const expressApp = expres();
 
-var selectALL = conn.query('SELECT * FROM posts', (error, results, fields) => {
-    if (error) throw error;
-    var resultados = [];
-    console.log('\n\n');
-    results.forEach(result => {
-        resultados.push(JSON.stringify(result));
-        console.log('\n' + JSON.stringify(result));
-    })
-    return resultados._rows;
-});
 
-const listPosts = function (req, res) {
+expressApp.get("/:", (req, res) =>{
     res.writeHead(200);
-    res.end(JSON.stringify(selectALL._rows));
-}
-
-const serv = http.createServer(listPosts);
-
-serv.listen(args.port, args.host, () => {
-    console.log(`Server is running on http://${args.host}:${args.port}`);
+    res.send(JSON.stringify(selectAll._rows));
 });
+
+expressApp.get("/:id", (req, res) =>{
+    res.writeHead(200);
+    res.send('xdxd');
+});
+
+expressApp.listen(PORT, () =>{
+    console.log(`Servidor levantado en el puerto ${PORT}`)
+}); 
+
+
+// const listPosts = function (req, res) {
+//     let url = new URL(`http://${args.host}:${req.url}`);
+//     console.log(url);
+//     let data = "";
+//     let chunkIndex = 0;
+
+//     req.on('data', (chunk) => {
+//         data += chunk;
+//         console.log(chunkIndex++);
+//     })
+//     // if(req.method == 'GET'){
+        
+//     //     res.writeHead(200);
+//     //     res.end(JSON.stringify(selectAll._rows));
+        
+//     // }else if(req.method == 'POST'){ 
+//     //     res.writeHead(200);
+//     //     res.end('HOlA');
+//     // }
+
+//     req.on('end', () => {
+//         console.log(data);
+//         res.end('RECIBIDO');
+//     })
+    
+// }
+
+// const serv = http.createServer(listPosts);

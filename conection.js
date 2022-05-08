@@ -22,13 +22,3 @@ export default function connectDB(args) {
         console.error(e);
     }
 }
-
-// conexion.query('SELECT * FROM posts', (error, results, fields) =>{
-//     if(error) throw error;
-
-//     results.forEach(result => {
-//         console.log(result);
-//     });
-// });
-
-// conexion.end();
