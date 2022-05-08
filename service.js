@@ -1,4 +1,3 @@
-import http from 'http'
 import { selectAll, selectOne, args} from './queries.js';
 import expres from 'express'
 
@@ -7,13 +6,11 @@ const expressApp = expres();
 
 
 expressApp.get("/:", (req, res) =>{
-    res.writeHead(200);
     res.send(JSON.stringify(selectAll._rows));
 });
 
-expressApp.get("/:id", (req, res) =>{
-    res.writeHead(200);
-    res.send('xdxd');
+expressApp.get("/:id", (req, res) => {
+    res.send(JSON.stringify(selectOne(req.params.id)));
 });
 
 expressApp.listen(PORT, () =>{

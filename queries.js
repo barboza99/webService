@@ -1,6 +1,6 @@
-import { type } from 'express/lib/response';
 import connectDB from './conection.js';
 import args from './config.js'
+
 var conn = connectDB(args);
 
 function selectAll() {
